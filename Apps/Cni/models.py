@@ -29,5 +29,4 @@ class Profil(models.Model):
         return f"{self.user}"
 
     class Meta:
-       unique_together = ('user','no_identity','birth_province',)
-
+       unique_together = ('user','no_identity','birth_date',)
