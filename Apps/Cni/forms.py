@@ -104,6 +104,11 @@ class CniForm(forms.ModelForm):
         ),label='Civil state'
     )
 
+    nationality = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Nationality', 'class': 'form-control'}
+        ),label='Nationality'
+    )
     class Meta:
         model = Profil
         # fields = (
@@ -111,7 +116,7 @@ class CniForm(forms.ModelForm):
         #     "birth_area", "birth_district", "birth_date", "father_fullname", "mother_fullname", "profession",
         #     "phone_number", "matri_no", "residence_province", "residence_city", "residence_area", "residence_district","civil_state",
         #     )
-        exclude = ("user",)
+        exclude = ("user","simple_user",)
         
 
 

@@ -6,6 +6,7 @@ from Apps.CompleteIdentity.forms import *
 from Apps.CompleteIdentity.models import *
 from django.http import HttpResponse
 from django.db.models import Q
+from django.contrib import messages
 # Create your views here.
 
 def AddCompleteIdentity(request):
@@ -18,14 +19,14 @@ def AddCompleteIdentity(request):
 
     if request.method == "POST":
         if completeIdentityForm.is_valid():
-            area                = completeIdentityForm.cleaned_data['area']
+            province            = completeIdentityForm.cleaned_data['province']
             birth_year          = completeIdentityForm.cleaned_data['birth_year']
             transaction_code    = completeIdentityForm.cleaned_data['transaction_code']
         
-            CompleteIdentity(beneficiary=beneficiary, birth_year=birth_year, transaction_code=transaction_code,area = area).save()
+            CompleteIdentity(beneficiary=beneficiary, birth_year=birth_year, transaction_code=transaction_code,province = province).save()
             
-            msg = "Enregistrer avec success !!!"
+            messages.success(request, "Enregistrer avec success !!!")
             completeIdentityForm = CompleteIdentityForm()
         else:
-            msg = "Form is not valide !!!"
+            messages.error(request, "Formulaire invalide !!!")
     return render(request, 'completeIdentity.html', locals())

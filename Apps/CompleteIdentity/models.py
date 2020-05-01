@@ -8,7 +8,7 @@ from django.utils import timezone
 
 class CompleteIdentity(models.Model):
     beneficiary         = models.ForeignKey(User, on_delete=models.CASCADE,related_name='be')
-    area                = models.ForeignKey(Area, on_delete=models.CASCADE,related_name='ar')
+    province            = models.ForeignKey(Province, on_delete=models.CASCADE,related_name='ar')
     birth_year          = models.IntegerField()
     date                = models.DateTimeField(default=timezone.now)
     transaction_code    = models.CharField(max_length=20, default="1DF56HJ9JK8L6T")

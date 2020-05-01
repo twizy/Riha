@@ -11,7 +11,6 @@ class District(models.Model):
 
 class Area(models.Model):
     area = models.CharField(max_length=50)
-    district = models.ForeignKey(District, on_delete=models.CASCADE)
     fullname_area_chief = models.CharField(max_length=50, default="Area chief")
 
     def __str__(self):
@@ -20,7 +19,6 @@ class Area(models.Model):
 
 class City(models.Model):
     city = models.CharField(max_length=50)
-    area = models.ForeignKey(Area, on_delete=models.CASCADE)
     fullname_city_chief = models.CharField(max_length=50, default="City chief")
 
     def __str__(self):
@@ -29,6 +27,8 @@ class City(models.Model):
 class Province(models.Model):
     province = models.CharField(max_length=50)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
+    area = models.ForeignKey(Area, on_delete=models.CASCADE)
+    district = models.ForeignKey(District, on_delete=models.CASCADE)
     fullname_province_chief = models.CharField(max_length=50, default="Province chief")
 
     def __str__(self):

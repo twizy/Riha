@@ -24,9 +24,10 @@ class Profil(models.Model):
     residence_district = models.ForeignKey(District, on_delete=models.CASCADE, related_name="dis")
     civil_state = models.CharField(max_length=100, default="Célibataire")
     nationality = models.CharField(max_length=100, default="Burundaise")
+    simple_user = models.CharField(max_length=100, default="Simple")
 
     def __str__(self):
         return f"{self.user}"
 
     class Meta:
-       unique_together = ('user','no_identity','birth_date',)
+       unique_together = ('user','no_identity','birth_date','simple_user',)

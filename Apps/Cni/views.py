@@ -3,6 +3,7 @@ from Apps.Cni.models import *
 from Apps.Cni.forms import *
 from django.http import HttpResponse
 from django.db.models import Q
+from django.contrib import messages
 # Create your views here.
 
 
@@ -36,8 +37,8 @@ def AddProfil(request):
             mother_fullname=mother_fullname, profession=profession, phone_number=phone_number,\
             matri_no=matri_no, residence_province=residence_province, residence_city=residence_city,\
             residence_area = residence_area, residence_district = residence_district, civil_state = civil_state).save()
-            msg = "Enregistrer avec success !!!"
+            messages.success(request, "Enregistrer avec success !!!")
             cniForm = CniForm()
         else:
-            msg = "Form is not valide !!!"
+            messages.error(request, "Formulaire invalide !!!")
     return render(request, 'profile.html', locals())
