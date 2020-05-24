@@ -36,7 +36,7 @@
         <div class="navbar navbar-expand-md header-menu-one bg-light">
         <div class="nav-bar-header-one">
             <div class="header-logo">
-                <a href="{% url 'index' %}">
+                <a href="{% url 'home' %}">
                     <img src="{% static 'img/logo.png' %}" alt="logo">
                 </a>
             </div>
@@ -89,10 +89,16 @@
                         </div>
                         <div class="item-content">
                             <ul class="settings-list">
-                                <li><a href="#"><i class="flaticon-user"></i>My Profile</a></li>
+                                <li><a href="{% url 'edit_profil' %}"><i class="flaticon-user"></i>My Profile</a></li>
                                 <li><a href="#"><i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Message</a></li>
-                                <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
-                                <li><a href=""><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                <li><a href=""><i class="flaticon-gear-loading"></i>Account Settings</a></li>
+      
+                                    {% for a in is_adm %}
+                                    {% if a.is_area_admin == True %}
+                                    <li><a href="{% url 'attr' %}"><i class="flaticon-gear-loading"></i>Attribution</a></li>
+                                    {% endif %}
+                                    {% endfor %}
+                                <li><a href="{% url 'logout' %}"><i class="flaticon-turn-off"></i>Log Out</a></li>
                             </ul>
                         </div>
                     </div>
@@ -106,13 +112,23 @@
         <div class="sidebar-main sidebar-menu-one sidebar-expand-md sidebar-color">
             <div class="mobile-sidebar-header d-md-none">
                 <div class="header-logo">
-                    <a href="{% url 'index' %}"><img src="{% static 'img/logo1.png' %}" alt="logo"></a>
+                    <a href="{% url 'home' %}"><img src="{% static 'img/logo1.png' %}" alt="logo"></a>
                 </div>
             </div>
             <div class="sidebar-menu-content">
                 <ul class="nav nav-sidebar-menu sidebar-toggle-view">
+                    {% if staf.staff_member == True %}
                     <li class="nav-item sidebar-nav-item">
-                        <a href="#" class="nav-link"><i class="flaticon-dashboard"></i><span>Attestations</span></a>
+                        <a href="#" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
+                        <ul class="nav sub-group-menu">
+                            <li class="nav-item">
+                                <a href="{% url 'cll' %}" class="nav-link"><i class="fas fa-angle-right"></i>Attestation d'identité complète.</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item sidebar-nav-item">
+                        <a href="#" class="nav-link"><i class="flaticon-dashboard"></i><span>Mes Attestations</span></a>
                         <ul class="nav sub-group-menu">
                             <li class="nav-item">
                                 <a href="{% url 'cl' %}" class="nav-link"><i class="fas fa-angle-right"></i>Attestation d'identité complete.</a>
@@ -169,6 +185,14 @@
                     </button>
                 </div>
                 {% endif %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                <div {{ login_error }} class="alert alert-info alert-dismissible fade show text-center" id="info-alert" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
                 {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
                 <div class="alert alert-warning alert-dismissible fade show text-center" id="warning-alert" role="alert">
                     {{ message }}
@@ -180,6 +204,7 @@
                 {% endfor %}
               {% endif %}
 
+              {% block text %}
               <div>
                     <p>Choisir le type d'attestation que vous voulez</p>
                     <hr>
@@ -191,6 +216,7 @@
                     </p>
                  
               </div>
+               {% endblock %}
 
       {% block content %}
 
@@ -236,5 +262,7 @@ $(document).ready(function(){
 });
 
 
+
 </script>
 </body>
+</html>

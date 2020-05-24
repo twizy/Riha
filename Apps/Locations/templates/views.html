@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block text %}
+{% endblock %}
+
+{% block content %}
+    <div class="row text-dark">
+    <div class="col">
+
+        REPUBLIQUE DU BURUNDI <br>
+        MINISTERE DE L’INTERIEUR <br>
+        ET DE LA FORMATION PATRIOTIQUE <br>
+        ET DEVELOPPEMENT LOCAL <br>
+        MUNICIPALITE DE {{ i.province|upper }} <br>
+        COMMUNE URBAINE DE {{ i.city|upper }} <br>
+        ZONE DE {{ i.area|upper }} <br>{{ testing }}
+
+        <p class="text-center text-dark"><u>ATTESTATION D’IDENTITE COMPLETE N° {% if i.id %} {{ i.id }} {% else %} ..... {% endif %} /2020</u></p>
+        
+        <p class="text-dark">Je soussigné, {{ i.area.fullname_area_chief }}, Chef de Zone {{ i.area }}, atteste
+            par la présente que l’identité complète de Monsieur {{ i.beneficiary.last_name }} {{ i.beneficiary.first_name }}, est le suivant : </p>
+    </div>
+    </div>
+
+    <a class="btn btn-outline-success mt-4" href="http://">Confirmer et Envoyer</a>
+    <a class="btn btn-outline-danger mt-4" href="http://">Annuler</a>
+{% endblock %}
+

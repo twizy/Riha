@@ -1,13 +1,19 @@
 from django.shortcuts import render, redirect, reverse
 from Apps.Cni.models import *
 from Apps.Cni.forms import *
+from Apps.Locations.models import *
+from Apps.Locations.forms import *
 from django.http import HttpResponse
 from django.db.models import Q
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from Apps.Base.views import *
 # Create your views here.
 
-
+@login_required
 def AddProfil(request):
+    h3 = "Compléter votre profile"
     cniForm = CniForm(request.POST or None, request.FILES)
     if request.method == "POST":
         if cniForm.is_valid():
@@ -39,6 +45,7 @@ def AddProfil(request):
             residence_area = residence_area, residence_district = residence_district, civil_state = civil_state).save()
             messages.success(request, "Enregistrer avec success !!!")
             cniForm = CniForm()
+            return redirect(index)
         else:
             messages.error(request, "Formulaire invalide !!!")
     return render(request, 'profile.html', locals())

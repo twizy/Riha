@@ -11,30 +11,19 @@ class ProvinceForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={'placeholder':'Full name of province chief','class':'form-control'}
             ), label='Province', max_length=100)
-
-    city = forms.ModelChoiceField(
-        widget=forms.Select(
-            attrs={'placeholder': 'City', 'class': 'form-control'}
-            ), queryset = City.objects.all(),
-            label='City')
-            
-    area = forms.ModelChoiceField(
-        widget=forms.Select(
-            attrs={'placeholder': 'Area', 'class': 'form-control'}
-            ), queryset=Area.objects.all(),
-            label='Area')
-
-    district = forms.ModelChoiceField(
-        widget=forms.Select(
-            attrs={'placeholder': 'District', 'class': 'form-control'}
-            ), queryset = District.objects.all(),
-            label='District')
             
     class Meta:
         model = Province
         fields = "__all__"
 
 class CityForm(forms.ModelForm):
+
+    province = forms.ModelChoiceField(
+        widget=forms.Select(
+            attrs={'placeholder': '', 'class': 'form-control'}
+            ), queryset=Province.objects.all(),
+            label='Province')
+
     city = forms.CharField(
         widget=forms.TextInput(
             attrs={'placeholder':'City ','class':'form-control'}
@@ -47,10 +36,17 @@ class CityForm(forms.ModelForm):
 
     class Meta:
         model = City
-        fields = "__all__"
+        fields = ("province","city","fullname_city_chief")
 
 
 class AreaForm(forms.ModelForm):
+
+    city = forms.ModelChoiceField(
+        widget=forms.Select(
+            attrs={'placeholder': 'City', 'class': 'form-control'}
+            ), queryset = City.objects.all(),
+            label='City')
+
     area = forms.CharField(
         widget=forms.TextInput(
             attrs={'placeholder':'Area ','class':'form-control'}
@@ -60,13 +56,21 @@ class AreaForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={'placeholder':'Full name of area chief','class':'form-control'}
             ), label='Area chief', max_length=100)
-            
+
+
     class Meta:
         model = Area
-        fields = "__all__"
+        fields = ("city","area","fullname_area_chief")
 
 
 class DistrictForm(forms.ModelForm):
+
+    area = forms.ModelChoiceField(
+        widget=forms.Select(
+            attrs={'placeholder': 'Area', 'class': 'form-control'}
+            ), queryset=Area.objects.all(),
+            label='Area')
+
     district = forms.CharField(
         widget=forms.TextInput(
             attrs={'placeholder': 'District', 'class': 'form-control'}
@@ -79,7 +83,17 @@ class DistrictForm(forms.ModelForm):
         ),label='District chief', max_length=100
     )
 
-
     class Meta:
         model = District
+        fields = ("area", "district", "fullname_district_chief")
+        
+class TestingForm(forms.ModelForm):
+
+    testing = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'placeholder':'Testing 1','class':'form-control'}
+            ), label='Testing', max_length=100)
+
+    class Meta:
+        model = Testing
         fields = "__all__"

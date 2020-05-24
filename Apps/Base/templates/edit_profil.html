@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block text %}
+{% endblock %}
+{% block content %}
+<br>
+
+{% for i in my_profill %}
+<p>{{ i.user }}</p>
+<p>Tu veux modifier ton profile ? <a href="{% url 'p' %}">Vas-y.</a></p>
+{% endfor %}
+
+{% endblock %}
+

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+{% block text %}
+{% endblock %}
+      {% block content %}
+      <div class="container">
+            <div class="row">
+              <div class="col-lg-12 mx-auto"> <br>
+      <form action="." method="post">
+            {% csrf_token %}
+            
+            <div class="row" {{ show_hide_form }}>
+                
+                <div class="col-lg-6">
+                    <div class="input-group mb-3 input-group-lg mx-auto my-4">  
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">{{ field.label }}Utilisateur *</span>
+                    </div>
+                        {{ adminUsersForm.user }} <br>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="input-group mb-3 input-group-lg mx-auto my-4">  
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">{{ field.label }}Province *</span>
+                    </div>
+                        {{ adminUsersForm.province }} <br>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="input-group mb-3 input-group-lg mx-auto my-4">  
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">{{ field.label }}Commune *</span>
+                    </div>
+                        {{ adminUsersForm.city }} <br>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="input-group mb-3 input-group-lg mx-auto my-4">  
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">{{ field.label }}Zone *</span>
+                    </div>
+                        {{ adminUsersForm.area }} <br>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="input-group mb-3 input-group-lg mx-auto my-4">  
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">{{ field.label }}Quartier *</span>
+                    </div>
+                        {{ adminUsersForm.district }} <br>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="input-group mb-3 input-group-lg mx-auto my-4">  
+                        <p>{{ adminUsersForm.is_city_admin }} Chef de commune</p> <br>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="input-group mb-3 input-group-lg mx-auto my-4">  
+                        <p>{{ adminUsersForm.is_area_admin }} Chef de zone</p> <br>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="input-group mb-3 input-group-lg mx-auto my-4">  
+                        <p>{{ adminUsersForm.is_district_admin }} Chef de quartier</p> <br>
+                    </div>
+                </div>
+                
+            </div>
+           
+
+            <br>
+    
+            <button type="submit" class="btn btn-primary" >Attribue un role</button>
+
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
