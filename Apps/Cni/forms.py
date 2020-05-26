@@ -121,7 +121,7 @@ class CniForm(forms.ModelForm):
         #     "birth_area", "birth_district", "birth_date", "father_fullname", "mother_fullname", "profession",
         #     "phone_number", "matri_no", "residence_province", "residence_city", "residence_area", "residence_district","civil_state",
         #     )
-        exclude = ("user","simple_user","staff_member",)
+        exclude = ("user","simple_user","staff_member","cni_one","cni_two",)
         
 
 

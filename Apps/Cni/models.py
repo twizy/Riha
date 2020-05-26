@@ -26,6 +26,8 @@ class Profil(models.Model):
     civil_state = models.CharField(max_length=100, default="Célibataire")
     nationality = models.CharField(max_length=100, default="Burundaise")
     staff_member = models.BooleanField(default=False)
+    cni_one = models.ImageField(null=True, blank=True, upload_to="CNI/")
+    cni_two = models.ImageField(null=True, blank=True, upload_to="CNI/")
 
     def __str__(self):
         return f"{self.user}"

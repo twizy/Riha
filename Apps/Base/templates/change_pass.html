@@ -9,7 +9,7 @@
   <meta name="description" content=""/>
   <meta name="author" content=""/>
 
-  <title>{% block title %} Login {% endblock %}</title>
+  <title>{% block title %} Change password {% endblock %}</title>
 
 <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
 <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
@@ -63,13 +63,13 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-xl-6 mx-auto"> <br>
-            <h3 class="card-title text-center">Sign In</h3>
-          <form method="post" {% if next_p %} action=".?next={{ next_p }}" {% else %} action="." {% endif %} class="new-added-form" data-select2-id="18">
+            <h3 class="card-title text-center">Change password</h3>
+          <form method="post" class="new-added-form" data-select2-id="18">
             {% csrf_token %}
                   <div class="input-group mb-3 input-group-lg mx-auto">
-                    <h3 class="login-heading mb-2 mt-4">Sign in to Riha</h3>
+                    <h3 class="login-heading mb-2 mt-4">Change password</h3>
                   </div> <br>
-                  {% for field in formulaire %}
+                  {% for field in form %}
                   <div class="input-group mb-3 input-group-lg mx-auto my-4">
                     <div class="input-group-prepend">
                       <span class="input-group-text">{{ field.label }} *</span>
@@ -87,17 +87,12 @@
                   {% endif %}
                   <br>
                   <div class="mx-auto">
-                      <button type="submit" class="btn btn-outline-success btn-lg col-xl-12 col-lg-12 col-12 my-4">Sign In</button>
-                  </div>
-                  <div class="mx-auto">
-                    <a class="text-right mt-2 small" href="">
-                      <u><a href="{% url 'password' }">Forgot password ?</a></u>
-                    </a>
+                      <button type="submit" class="btn btn-outline-success btn-lg col-xl-12 col-lg-12 col-12 my-4">Confirm changes</button>
                   </div>
 
                   <div class="mx-auto">
-                      <a class="d-block text-center mt-2 small" href="{% url 'register' %}">
-                        Sign Up
+                      <a class="d-block text-center mt-2 small" href="{% url 'home' %}">
+                        Annuler
                       </a>
                   </div>
           </form>

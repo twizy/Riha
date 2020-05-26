@@ -89,7 +89,9 @@
                         </div>
                         <div class="item-content">
                             <ul class="settings-list">
-                                <li><a href="{% url 'edit_profil' %}"><i class="flaticon-user"></i>My Profile</a></li>
+                                {% for co in connected_user %}
+                                <li><a href="{% url 'edit_profil' co.id %}"><i class="flaticon-user"></i>My Profile</a></li>
+                                {% endfor %}
                                 <li><a href="#"><i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Message</a></li>
                                 <li><a href=""><i class="flaticon-gear-loading"></i>Account Settings</a></li>
       
@@ -117,16 +119,18 @@
             </div>
             <div class="sidebar-menu-content">
                 <ul class="nav nav-sidebar-menu sidebar-toggle-view">
-                    {% if staf.staff_member == True %}
-                    <li class="nav-item sidebar-nav-item">
-                        <a href="#" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
-                        <ul class="nav sub-group-menu">
-                            <li class="nav-item">
-                                <a href="{% url 'cll' %}" class="nav-link"><i class="fas fa-angle-right"></i>Attestation d'identité complète.</a>
-                            </li>
-                        </ul>
-                    </li>
-                    {% endif %}
+                    {% for ad in is_adm %}
+                        {% if ad %}
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item">
+                                    <a href="{% url 'cll' %}" class="nav-link"><i class="fas fa-angle-right"></i>Attestation d'identité complète.</a>
+                                </li>
+                            </ul>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
                     <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-dashboard"></i><span>Mes Attestations</span></a>
                         <ul class="nav sub-group-menu">

@@ -17,18 +17,26 @@ from Apps.Admins.models import *
 # Create your views here.
 
 @login_required
-def EditProfil(request):
+def EditProfil(request,id):
+	get_current_user = get_object_or_404(Profil,pk=id)
 	my_profil = Profil.objects.filter(Q(user=request.user)).count()
 	if my_profil < 1:
 		return redirect(AddProfil)
 	else:
-		messages.info(request, "Votre profile est complet")
+		updateCniForm = UpdateCniForm(request.POST or None, request.FILES, instance=get_current_user)
+		if request.method == "POST":
+			if updateCniForm.is_valid():
+				get_current_user.save()
+				messages.info(request, "Votre profile est complet")
+				return redirect(index)
+		updateCniForm = UpdateCniForm(instance=get_current_user)
+		
 	return render(request, 'edit_profil.html', locals())
 	
 @login_required
 def index(request):
 	h3 = "Acceuil"
-	# staf = get_object_or_404(Profil, user=request.user)
+	connected_user = Profil.objects.filter(user=request.user)
 	is_adm = AdminiUsers.objects.filter(user=request.user, is_area_admin=True)
 	return render(request,'base.html',locals())
 
@@ -44,7 +52,7 @@ def CompleteIdentityList(request):
 def AllCompleteIdentityList(request):
 	h3 = "Attestations"
 	connected_user = request.user
-	is_sta = Profil.objects.filter(Q(user=connected_user) & Q(staff_member=True))
+	is_sta = AdminiUsers.objects.filter(Q(user=connected_user) & Q(is_area_admin=True))
 	if is_sta:
 		typ_admin = get_object_or_404(AdminiUsers,Q(user=connected_user) & Q(is_area_admin=True))
 		get_identity_untreated = CompleteIdentity.objects.filter(Q(treated=False) & Q(area=typ_admin.area))
@@ -188,7 +196,7 @@ def Change_password(request):
 			messages.error(request, 'Please correct the error below.')
 	else:
 		form = PasswordChangeForm(request.user)
-	return render(request, 'change_password.html', {
+	return render(request, 'change_pass.html', {
         'form': form
     })
 
